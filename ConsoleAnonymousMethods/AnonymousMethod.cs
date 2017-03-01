@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace ConsoleAnonymousMethods
 {
-    //delegaten kan pege på en metode som returnerer en int og som har en int parameter
-    delegate int delInt1par(int x);
+    
 
     class AnonymousMethod
     {
+        //delegaten kan pege på en metode som returnerer en int og som har en int parameter
+        delegate int delInt1par(int x);
+        delegate bool delBool1par(int x);
+        delegate int delGange2par(int x, int y);
         static void Main(string[] args)
         {
 
@@ -52,11 +55,35 @@ namespace ConsoleAnonymousMethods
             //-brug delegaten til at kode en anonym metode som gør det samme som metoden gtrThan100
             //-brug delegaten til at kode et lambda expression som gør det samme som  gtrThan100
             //-hvilken predefineret delagate kan du bruge istedet for din egen delegate -prøv at bruge den med et Lamda expression
+            delBool1par delgT100 = gtrThan100;
+            Console.WriteLine($"delgT100 : {delgT100}");
 
+            delBool1par delgTAnonym = delegate(int x)
+            {
+                return x > 100;
+            };
+            Console.WriteLine("delgT100 : " + delgTAnonym);
 
+            delBool1par delgTLamda = x => x > 100;
+            Console.WriteLine($"delgT100 lamda : {delgTLamda}");
+
+            Func<int, bool> funcDelegate100 = x => x > 100;
+            Console.WriteLine($"funcDelegate100: {funcDelegate100}");
             //Opgave2:
             //gør det samme som ovenstående opgave , nu bare med metoden "gange":  private static int gange(int x, int y)
+            delGange2par delGange2 = gange;
+            Console.WriteLine($"delGange2 : {delGange2(2, 5)}");
+            delGange2par delGangeAnonym = delegate(int x, int y)
+            {
+                return x * y;
+            };
+            Console.WriteLine("delGange2 : " + delGangeAnonym);
 
+            delGange2par delGangeLamda = (x,y) => x * y;
+            Console.WriteLine($"delGange2 lamda : {delGange2(2,5)}");
+
+            Func<int, int, int> funcDelegateGange = (x, y) => x * y;
+            Console.WriteLine($"funcDelegateGange: {funcDelegateGange(2,5)}");
         }
 
 
